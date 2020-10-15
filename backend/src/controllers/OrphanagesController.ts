@@ -58,11 +58,11 @@ export default{
       about, 
       instructions, 
       opening_hours, 
-      open_on_weekends,
+      open_on_weekends: open_on_weekends==='true',
       images
     }
 
-    const shcema = Yup.object().shape({
+    const schema = Yup.object().shape({
       name: Yup.string().required(), 
       latitude: Yup.number().required(), 
       longitude: Yup.number().required(), 
@@ -76,9 +76,11 @@ export default{
         })
       )
     })
+    
 
-    await shcema.validate(data, {
+    await schema.validate(data, {
       abortEarly: false,
+
     });
     
     const orphanage = orphanagesRepository.create(data);
